@@ -100,11 +100,17 @@ const InstagramIcon = () => (
     </svg>
 )
 
-// API URL for regular API calls (through Vite proxy)
-const API_URL = '/api/auth';
+// API URL for regular API calls
+// In production, use VITE_API_URL env variable; in development, use Vite proxy
+const API_URL = import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api/auth`
+    : '/api/auth';
 
 // OAuth URL - must use direct backend URL because OAuth redirects cannot go through proxy
-const OAUTH_URL = 'http://localhost:3000/api/auth';
+// In production, use VITE_API_URL; in development, use localhost
+const OAUTH_URL = import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api/auth`
+    : 'http://localhost:3000/api/auth';
 
 function Login() {
     const navigate = useNavigate()
